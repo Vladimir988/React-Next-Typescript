@@ -1,0 +1,24 @@
+.postItem {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  gap: 15px;
+  border: 2px solid teal;
+  margin-top: 15px;
+  text-decoration: none;
+  color: teal;
+}
+
+.postContent {
+  flex-grow: 1;
+
+  strong {
+    display: block;
+    margin-bottom: 6px;
+  }
+}
+
+.postBtns {
+  display: flex;
+  gap: 6px;
+}

@@ -1,11 +1,38 @@
 import {FC} from 'react';
+import Link from "next/link";
+import css from "../styles/Posts.module.scss";
 
-const Posts: FC = () => {
+const Posts: FC = ({posts}) => {
     return (
-        <div>
-            <h1>Posts page</h1>
-        </div>
+        <main style={{margin: '10px'}}>
+            <h1>Posts:</h1>
+            <br/>
+            <ul style={{listStyleType: 'none'}}>
+                {posts.map(post =>
+                    <Link className={css.postItem} href={`/posts/${post.id}`} key={post.id}>
+                        <div className={css.postContent}>
+                            <strong>{post.id}. {post.title}</strong>
+                            <div>{post.body}</div>
+                        </div>
+                        <div className={css.postBtns}>
+                            <button>Open</button>
+                            <button>Delete</button>
+                        </div>
+                    </Link>
+                )}
+            </ul>
+        </main>
     );
 };
 
 export default Posts;
+
+export async function getStaticProps() {
+    const url      = 'https://jsonplaceholder.typicode.com/posts';
+    const response = await fetch(url);
+    const posts    = await response.json();
+
+    return {
+        props: {posts},
+    }
+}
