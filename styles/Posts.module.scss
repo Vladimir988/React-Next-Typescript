@@ -7,6 +7,26 @@
   margin-top: 15px;
   text-decoration: none;
   color: teal;
+
+  .openLink {
+    display: inline-block;
+    padding: 4px 15px 4px 25px;
+    border: 1px solid teal;
+    border-radius: 4px;
+    text-decoration: none;
+    color: teal;
+    min-width: 110px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+
+    &:hover {
+      background: teal;
+      color: white;
+    }
+  }
 }
 
 .postContent {

@@ -1,4 +1,42 @@
 .post {
   padding: 10px;
   margin-bottom: 10px;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  & > p {
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    margin-bottom: 15px;
+  }
+
+  .back {
+    display: inline-block;
+    padding: 4px 25px 4px 15px;
+    margin-bottom: 10px;
+    border: 1px solid teal;
+    border-radius: 4px;
+    text-decoration: none;
+    color: teal;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    
+    &:hover {
+      background: teal;
+      color: white;
+    }
+  }
+}
+
+.commentWrap {
+  padding: 10px;
+  border: 1px solid teal;
+  margin-bottom: 5px;
 }

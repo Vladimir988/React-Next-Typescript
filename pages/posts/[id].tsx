@@ -1,30 +1,36 @@
 import css from "../../styles/Post.module.scss";
-import {FC, useState} from "react";
+import PageHead from "../../components/PageHead";
+import {PostInterface} from "../../interfaces/interfaces";
+import {satisfies} from "next/dist/lib/semver-noop";
+import Link from "next/link";
 
-const Post: FC = ({post}) => {
-    console.log(post);
+export default function Post({post}: PostInterface) {
     return(
         <div className={css.post}>
-            <h1>{post.id}. {post.title}</h1>
-            <p>{post.body}</p>
-            {/*<MyHead keywords="next-js-keywords" title={"User " + user.name} />*/}
-            {/*<Navbar />*/}
-            {/*<h1>User with id: {user.id}</h1>*/}
-            {/*<p>name: <b>{user.name}</b></p>*/}
-            {/*<p>nickname: <b>{user.username}</b></p>*/}
-            {/*<p>phone: <b>{user.phone}</b></p>*/}
-            {/*<p>website: <b>{user.website}</b></p>*/}
+            <PageHead keywords={`Single post - ${post.body.id}`} title={post.body.title.charAt(0).toUpperCase() + post.body.title.slice(1, 20)}/>
+            <Link className={css.back} href='/posts'>← Back</Link>
+            <h1>{post.body.id}. {post.body.title}</h1>
+            <p>{post.body.body}</p>
+            <h2>Comments:</h2>
+            {post.comments.map(comment =>
+                <div className={css.commentWrap} key={comment.id}>
+                    <p>name: <b>{comment.name}</b></p>
+                    <p>email: <b>{comment.email}</b></p><br/>
+                    <p>{comment.body}</p>
+                </div>
+            )}
         </div>
     );
-};
-
-export default Post;
-
-export async function getServerSideProps({params}) {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`);
-    const post     = await response.json();
-
-    return {
-        props: {post},
-    }
 }
+
+export const getServerSideProps = (async ({params}) => {
+    const body  = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`);
+    const comments = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}/comments`);
+
+    const post: { body: any; comments: any } = {
+        body: await body.json(),
+        comments: await comments.json(),
+    };
+
+    return { props: {post} }
+}) satisfies getServerSideProps<{ posts: PostInterface }>
