@@ -11,8 +11,8 @@ const Posts: FC = ({posts}) => {
                 {posts.map(post =>
                     <Link className={css.postItem} href={`/posts/${post.id}`} key={post.id}>
                         <div className={css.postContent}>
-                            <strong>{post.id}. {post.title}</strong>
-                            <div>{post.body}</div>
+                            <p><b>{post.id}. {post.title}</b></p>
+                            <p>{post.body}</p>
                         </div>
                         <div className={css.postBtns}>
                             <button>Open</button>
